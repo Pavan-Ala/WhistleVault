@@ -1,0 +1,62 @@
+{% extends "layout.html" %}
+{% block title %}Admin Dashboard - WhistleVault{% endblock %}
+{% block content %}
+<div class="text-center" align="center">
+    <h1>Admin Dashboard</h1>
+    <p>Welcome, Admin! Manage all secrets here.</p>
+
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            {% for message in messages %}
+                <div class="alert">{{ message }}</div>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+
+    {% if secrets %}
+        <table style="width: 80%; margin: 20px auto; border-collapse: collapse;">
+            <thead>
+                <tr style="background-color: #34495e; color: white;">
+                    <th style="padding: 10px;">Title</th>
+                    <th style="padding: 10px;">Information</th>
+                    <th style="padding: 10px;">Category</th>
+                    <th style="padding: 10px;">Priority</th>
+                    <th style="padding: 10px;">Photo</th>
+                    <th style="padding: 10px;">Date</th>
+                    <th style="padding: 10px;">Views</th>
+                    <th style="padding: 10px;">Owner</th>
+                    <th style="padding: 10px;">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for secret in secrets %}
+                    <tr style="border-bottom: 1px solid #eee;">
+                        <td style="padding: 10px;">{{ secret.title }}</td>
+                        <td style="padding: 10px;">{{ secret.secret or 'No text' }}</td>
+                        <td style="padding: 10px;">{{ secret.category }}</td>
+                        <td style="padding: 10px;">{{ secret.priority }}</td>
+                        <td style="padding: 10px;">
+                            {% if secret.photo_path %}
+                                <img src="{{ url_for('static', filename=secret.photo_path) }}" alt="Secret Photo" style="max-width: 100px;">
+                            {% else %}
+                                None
+                            {% endif %}
+                        </td>
+                        <td style="padding: 10px;">{{ secret.upload_date }}</td>
+                        <td style="padding: 10px;">{{ secret.views }}</td>
+                        <td style="padding: 10px;">{{ secret.owner }}</td>
+                        <td style="padding: 10px;">
+                            <form method="POST" action="{{ url_for('admin_dashboard') }}" style="display:inline;">
+                                <input type="hidden" name="delete_secret_id" value="{{ secret.secret_id }}">
+                                <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure?');">Delete</button>
+                            </form>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <p>No secrets available yet.</p>
+    {% endif %}
+</div>
+{% endblock %}

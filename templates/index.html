@@ -1,0 +1,40 @@
+{% extends "layout.html" %}
+{% block title %}WhistleVault{% endblock %}
+{% block content %}
+<div class="text-center" align="center">
+    <h1>Welcome to WhistleVault</h1>
+    <p>Securely share your information.</p>
+    <div>
+        <a href="{{ url_for('submit_secret') }}" class="btn">Submit Information</a>
+        <a href="{{ url_for('view_secrets') }}" class="btn btn-secondary">View Your Information</a>
+    </div>
+
+    <!-- Top 10 Most Viewed Information -->
+    <h1 style="margin-top: 150px;">Trending</h1>
+    {% if top_secrets %}
+    <table style="width: 75%; margin: 20px auto; border-collapse: collapse;text-align: center;">
+        <thead>
+            <tr style="background-color: #34495e; color: white;">
+                <th style="padding: 10px; width: 10%;text-align: center;">Rank</th>
+                <th style="padding: 10px; width: 28%;text-align: center;">Title</th>
+                <th style="padding: 10px; width: 27%;text-align: center;">Category</th>
+                <th style="padding: 10px; width: 10%;text-align: center;">Views</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for secret in top_secrets %}
+                <tr style="border-bottom: 1px solid #eee; cursor: pointer;" onclick="window.location='{{ url_for('view_all', secret_id=secret.secret_id) }}';">
+                    <td style="padding: 10px; width: 10%;">{{ loop.index }}</td>
+                    <td style="padding: 10px; width: 28%;">{{ secret.title }}</td>
+                    <td style="padding: 10px; width: 27%;">{{ secret.category }}</td>
+                    <td style="padding: 10px; width: 10%; text-align: center;">{{ secret.views }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    
+    {% else %}
+        <p>No information available yet.</p>
+    {% endif %}
+</div>
+{% endblock %}

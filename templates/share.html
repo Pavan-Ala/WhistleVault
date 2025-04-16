@@ -1,0 +1,19 @@
+{% extends "layout.html" %}
+{% block title %}Share Secret - WhistleVault{% endblock %}
+{% block content %}
+    </div>
+    <div class="text-center">
+        <h1>Share Secret</h1>
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div class="alert alert-{{ category }}">{{ message }}</div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+        <form method="POST" action="{{ url_for('share_secret', secret_id=secret_id) }}">
+            <input type="text" class="form-control" name="recipient_username" placeholder="Recipient Username" required>
+            <button type="submit" class="btn">Share</button>
+        </form>
+    </div>
+{% endblock %}

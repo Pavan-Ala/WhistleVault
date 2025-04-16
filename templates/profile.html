@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="initial-scale=1, width=device-width" charset="UTF-8">
+    <title>Profile - WhistleVault</title>
+    <link rel="stylesheet" href="/static/css/style.css" />
+    <style>
+        /* Center the entire Profile box */
+        .text-center {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: calc(100vh - 60px);
+            padding: 20px;
+        }
+
+        /* Style the tab-content box */
+        .text-center .tab-content {
+            background-color: rgba(255, 255, 255, 0.95);
+            border-radius: 8px;
+            padding: 20px;
+            max-width: 600px;
+            width: 100%;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            color: #1e3c72;
+            text-align: center;
+        }
+
+        /* Navigation Tabs */
+        .text-center .nav-tabs {
+            list-style: none;
+            padding: 0;
+            margin: 0 0 20px 0;
+            display: flex;
+            justify-content: center;
+            border-bottom: 2px solid #1e3c72;
+        }
+
+        .text-center .nav-tabs li {
+            flex: 1;
+            max-width: 150px;
+        }
+
+        .text-center .nav-tabs a {
+            display: block;
+            padding: 10px 15px;
+            color: #1e3c72;
+            text-decoration: none;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+
+        .text-center .nav-tabs a.active, .text-center .nav-tabs a:hover {
+            background-color: #1e3c72;
+            color: #fff;
+            border-radius: 5px 5px 0 0;
+        }
+
+        /* Profile Picture and Text */
+        .text-center .tab-content img {
+            max-width: 100px;
+            border-radius: 50%;
+            margin: 0 auto 15px;
+            display: block;
+            transition: transform 0.3s ease;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .text-center .tab-content img:hover {
+            transform: scale(1.05);
+        }
+
+        .text-center .tab-content h1 {
+            font-size: 2rem;
+            margin-bottom: 20px;
+            color: #1e3c72;
+        }
+
+        .text-center .tab-content h3 {
+            font-size: 1.5rem;
+            margin: 10px 0;
+            color: #2a5298;
+        }
+
+        .text-center .tab-content p {
+            font-size: 1rem;
+            margin: 5px 0;
+            color: #1e3c72;
+        }
+
+        /* Form Styling */
+        .text-center .tab-content form {
+            margin-top: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .text-center .tab-content .form-control[type="file"] {
+            width: 100%;
+            max-width: 300px;
+            padding: 8px;
+            margin-bottom: 15px;
+            background-color: #fff;
+            border: 1px solid #1e3c72;
+            border-radius: 4px;
+            color: #1e3c72;
+            cursor: pointer;
+        }
+
+        .text-center .tab-content .form-control[type="file"]::-webkit-file-upload-button {
+            background-color: #1e3c72;
+            color: #fff;
+            border: none;
+            padding: 8px 12px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .text-center .tab-content .form-control[type="file"]::-webkit-file-upload-button:hover {
+            background-color: #2a5298;
+        }
+
+        .text-center .tab-content .btn {
+            background-color: #1e3c72;
+            color: #fff;
+            padding: 10px 20px;
+            font-size: 1rem;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+        }
+
+        .text-center .tab-content .btn:hover {
+            background-color: #2a5298;
+            color: #fff;
+        }
+
+        .edit-btn {
+            background-color: #2a5298;
+            color: #fff;
+            padding: 8px 16px;
+            border: none;
+            border-radius: 4px;
+            margin-top: 15px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: background-color 0.3s ease;
+        }
+
+        .edit-btn:hover {
+            background-color: #1e3c72;
+        }
+
+        .remove-btn {
+            background-color: #e74c3c;
+            color: #fff;
+            padding: 8px 16px;
+            border: none;
+            border-radius: 4px;
+            margin-top: 15px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: background-color 0.3s ease;
+        }
+
+        .remove-btn:hover {
+            background-color: #c0392b;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .button-group {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            margin-top: 15px;
+        }
+
+        .no-photo-placeholder {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            background: #eee;
+            margin: 0 auto 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #666;
+        }
+
+        .error-message {
+            color: #e74c3c;
+            background-color: #fde8e8;
+            padding: 10px;
+            border-radius: 4px;
+            margin: 10px 0;
+        }
+
+        .success-message {
+            color: #27ae60;
+            background-color: #e8f8f0;
+            padding: 10px;
+            border-radius: 4px;
+            margin: 10px 0;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .text-center .tab-content {
+                max-width: 90%;
+                padding: 15px;
+            }
+
+            .text-center .nav-tabs {
+                flex-direction: column;
+                border-bottom: none;
+            }
+
+            .text-center .nav-tabs li {
+                margin-bottom: 5px;
+                max-width: none;
+            }
+
+            .text-center .nav-tabs a {
+                border-radius: 5px;
+            }
+
+            .text-center .tab-content form {
+                width: 100%;
+            }
+
+            .button-group {
+                flex-direction: column;
+                gap: 5px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="navbar">
+        <a href="{{ url_for('home') }}">WhistleVault</a>
+        <a href="{{ url_for('home') }}" style="float: right;">Home</a>
+        <a href="{{ url_for('submit_secret') }}" style="float: right;">Submit Information</a>
+        <a href="{{ url_for('view_secrets') }}" style="float: right;">My Information</a>
+        <a href="{{ url_for('profile') }}" style="float: right;">Profile</a>
+        <a href="{{ url_for('view_all') }}" style="float: right;">All Information</a>
+        <a href="{{ url_for('logout') }}" style="float: right;">Logout</a>
+    </div>
+    <div class="container">
+        <div class="text-center">
+            <h1>Profile</h1>
+            {% with messages = get_flashed_messages(with_categories=true) %}
+                {% if messages %}
+                    {% for category, message in messages %}
+                        <div class="{{ category }}-message">{{ message }}</div>
+                    {% endfor %}
+                {% endif %}
+            {% endwith %}
+            <div class="tab-content">
+                <ul class="nav-tabs">
+                    <li><a href="#" class="active">Info</a></li>
+                    <li><a href="{{ url_for('view_secrets') }}">My Information</a></li>
+                    <li><a href="{{ url_for('delete_account') }}">Delete Account</a></li>
+                </ul>
+                <div>
+                    {% if user.profile_picture %}
+                        <img src="{{ url_for('static', filename=user.profile_picture) }}" alt="Profile Picture" class="profile-picture">
+                    {% else %}
+                        <div class="no-photo-placeholder">
+                            <span>No Photo</span>
+                        </div>
+                    {% endif %}
+                    <h3>{{ user.username }}</h3>
+                    <p>{{ user.email }}</p>
+                    <p>Joined: {{ user.created_at }}</p>
+
+                    <div class="button-group">
+                        {% if user.profile_picture %}
+                            <form method="POST" action="{{ url_for('profile') }}" style="display: inline;">
+                                <input type="hidden" name="remove_picture" value="1">
+                                <button type="submit" class="remove-btn">Remove Photo</button>
+                            </form>
+                        {% endif %}
+                    </div>
+
+                    <!-- Hidden Form -->
+                    <form id="edit-form" class="hidden" method="POST" enctype="multipart/form-data">
+                        <input type="file" class="form-control" name="profile_picture" accept=".jpg,.jpeg,.png" required>
+                        <button type="submit" class="btn">Update Picture</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        function toggleEditForm() {
+            const form = document.getElementById('edit-form');
+            form.classList.toggle('hidden');
+        }
+    </script>
+</body>
+</html>

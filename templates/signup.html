@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="initial-scale=1, width=device-width" charset="UTF-8">
+    <title>Signup - WhistleVault</title>
+    <link rel="stylesheet" href="/static/css/style.css" />
+</head>
+<body>
+    <div class="navbar">
+        <a href="{{ url_for('login') }}">WhistleVault</a>
+        <a href="{{ url_for('login') }}" style="float: right;">Login</a>
+    </div>
+    <div class="text-center">
+        <h1>Sign Up</h1>
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div class="alert alert-{{ category }}">{{ message }}</div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+        <form method="POST" action="{{ url_for('signup') }}">
+            <input type="text" class="form-control" name="username" placeholder="Username" required>
+            <input type="email" class="form-control" name="email" placeholder="Email" required>
+            <input type="password" class="form-control" name="password" placeholder="Password" required>
+            <button type="submit" class="btn">Sign Up</button>
+        </form>
+    </div>
+</body>
+</html>
