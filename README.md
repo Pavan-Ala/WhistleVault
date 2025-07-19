@@ -58,21 +58,6 @@ WhistleVault follows the Model-View-Controller (MVC) architectural pattern:
 - **static/:** Stores uploaded photos and CSS files.
 - **scripts/setup.sql:** SQL script for database initialization.
 
-## How to Pull the Project
-To clone the WhistleVault repository from GitHub to your local machine:
-1. Ensure Git is installed (`git --version` to check, or install with `sudo apt install git` on Ubuntu).
-2. Open a terminal and navigate to your desired directory:
-   
-   cd /path/to/your/directory
-4. Clone the repository using the URL (replace with your repository URL):
-   
-   git clone https://github.com/PratikDhage/WhistleVault.git
-6. Navigate into the project folder:
-cd WhistleVault
-5. (Optional) Update your local copy by pulling the latest changes:
-  git pull origin main
-  (Use `master` if your default branch is named differently.)
-
 ## How to Run the Project
 After pulling the project or setting it up locally:
 1. Activate the virtual environment (if created):
@@ -124,4 +109,4 @@ SOFTWARE.
 We thank our instructors and peers for their guidance and support during the development of WhistleVault.
 
 ## Contact
-For questions or contributions, please open an issue or contact the team at [cs23b1047@iiitdm.ac.in].
+For questions or contributions, please open an issue or contact the team at [cs23b1069@iiitdm.ac.in].
